@@ -22,7 +22,6 @@ class InfoViewController: UIViewController, OutputInterface  {
     }
     
     func history(_ resultHistory: String) {
-//        print("resultHistory = \(resultHistory)")
         historyLabel.text = resultHistory
     }
     
