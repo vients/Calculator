@@ -15,8 +15,7 @@ class InputValidator : CalculatorInterface
     var brain = Brain()
     var dot = false
     
-//    var countLeftBrackets: Int = 0
-//    var countRightBrackets: Int = 0
+
     
     func digit(_ value: Int){
         if inputValue == nil || inputValue == "0" {
