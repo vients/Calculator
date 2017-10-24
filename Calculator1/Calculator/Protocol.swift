@@ -31,10 +31,6 @@ protocol InputDelegate {
     func enterDigit(_ value: String)
    }
 
-protocol MainViewControllerDelegate {
-    func outputDisplay(_ result: String)
-}
-
 enum Operation: String {
     case plus  = "+"
     case minus = "-"
@@ -60,7 +56,6 @@ enum Function: String {
 }
 
 enum Memory: String {
-    case memoryRead   = "mr"
     case memoryClean  = "mc"
     case memoryAdd    = "m+"
     case memoryRemove = "m-"

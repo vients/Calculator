@@ -18,6 +18,7 @@ class InfoViewController: UIViewController, OutputInterface  {
     
     func display(_ result: String) {
         resultLabel.text =  result
+//        output.displayText = self
     }
     
     func history(_ resultHistory: String) {

@@ -8,58 +8,228 @@
 
 import UIKit
 import  AVFoundation
-class InputViewController: UIViewController, InputInterface {
+import Speech
+
+class InputViewController: UIViewController, InputInterface, SFSpeechRecognizerDelegate {
     
-     var delegate: InputDelegate?
+    var delegate: InputDelegate?
     
-        override func viewDidLoad() {
+    @IBOutlet weak var microphoneButton: UIButton!
+    
+    private let speechRecognizer = SFSpeechRecognizer(locale: Locale.init(identifier: "uk"))  //en-US
+    
+    private var recognitionRequest: SFSpeechAudioBufferRecognitionRequest?
+    private var recognitionTask: SFSpeechRecognitionTask?
+    private let audioEngine = AVAudioEngine()
+    
+    var microphoneisActive : Bool = false {
+        didSet{
+            if microphoneisActive {
+                AudioServicesPlaySystemSound(1110)
+               microphoneButton.flashMicrophone()
+            }
+            else{
+               microphoneButton.layer.removeAllAnimations()
+            }
+        }
+    }
+    
+    override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        microphoneButton.isEnabled = false  //2
+        
+        speechRecognizer?.delegate = self  //3
+        
+        recognition()
+        
+    }
+    
+    func recognition() {
+        SFSpeechRecognizer.requestAuthorization { (authStatus) in  //4
+            
+            var isButtonEnabled = false
+            
+            switch authStatus {  //5
+            case .authorized:
+                isButtonEnabled = true
+                
+            case .denied:
+                isButtonEnabled = false
+                print("User denied access to speech recognition")
+                
+            case .restricted:
+                isButtonEnabled = false
+                print("Speech recognition restricted on this device")
+                
+            case .notDetermined:
+                isButtonEnabled = false
+                print("Speech recognition not yet authorized")
+            }
+            
+            OperationQueue.main.addOperation() {
+                self.microphoneButton.isEnabled = isButtonEnabled
+            }
+        }
+
     }
     
     func symbolPressed(_ symbol: String){
-        delegate?.enterDigit(symbol)
         
-//        delegate?.digit(Int(symbol)!)
-//         print("\(symbol)")
-//        brain.digitPressed(Int(symbol)!)
-//        if symbol == "7" || symbol == "4" || symbol == "5" || symbol == "8" || symbol == "123"
-//        {
-//            delegate?.enterDigit(symbol)
-//        }
-//        else if symbol == "+" || symbol == "-" || symbol == "×" || symbol == "÷"
-//        {
-//         delegate?.enterDigit(symbol)
-//        }
-//        else if symbol == "sin" || symbol == "cos" || symbol == "tan"
-//        {
-//           delegate?.enterDigit(symbol)
-//        }
+        var fullNameArr = symbol.characters.split{$0 == " "}.map(String.init)
+
+                var i = 0;
+                while(i < fullNameArr.count){
+                    
+                    delegate?.enterDigit(fullNameArr[i])
+                    i = i + 1
+                }
+        
     }
     
     @IBAction func tapOnButton(_ sender: UIButton) {
-       
+        
         symbolPressed(sender.currentTitle!)
         playClick()
+        
+        if sender.currentTitle == "AC"{
+            sender.shake()
+        }
+        else if sender.currentTitle == "="
+        {
+            sender.pulsate()
+        }
+        else {
+            sender.flash()
+        }
+        
     }
     
-    func playClick() {
-        AudioServicesPlaySystemSound(1104)
-    }
+    @IBAction func microphoneTapped(_ sender: UIButton) {
+       
+        microphoneisActive = !microphoneisActive
+
+        if audioEngine.isRunning {
+            audioEngine.stop()
+            recognitionRequest?.endAudio()
+            microphoneButton.isEnabled = false
+        }
+        else {
+                startRecording()
+            }
+        
+        }
+        
+        func playClick() {
+            AudioServicesPlaySystemSound(1104)
+        }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "InputViewSegue"{
-            let destinationVC = segue.destination as! AdditionViewController
-            destinationVC.delegate = delegate
-
+    
+        func startRecording() {
+            
+            if recognitionTask != nil {
+                recognitionTask?.cancel()
+                recognitionTask = nil
+            }
+            
+            let audioSession = AVAudioSession.sharedInstance()
+            do {
+                try audioSession.setCategory(AVAudioSessionCategoryRecord)
+                try audioSession.setMode(AVAudioSessionModeMeasurement)
+                try audioSession.setActive(true, with: .notifyOthersOnDeactivation)
+            } catch {
+                print("audioSession properties weren't set because of an error.")
+            }
+            
+            recognitionRequest = SFSpeechAudioBufferRecognitionRequest()
+            
+            guard let inputNode = audioEngine.inputNode else {
+                fatalError("Audio engine has no input node")
+            }
+            
+            guard let recognitionRequest = recognitionRequest else {
+                fatalError("Unable to create an SFSpeechAudioBufferRecognitionRequest object")
+            }
+            
+            recognitionRequest.shouldReportPartialResults = false
+            
+            //  recognitionRequest.
+            
+            recognitionTask = speechRecognizer?.recognitionTask(with: recognitionRequest, resultHandler: { (result, error) in
+                
+                var isFinal = false
+                
+                if result != nil {
+                    
+                   
+                    let resultSpeech = result?.bestTranscription.formattedString
+                    print("Result speaking text = \(resultSpeech!)")
+                    
+                    //output result
+                    self.symbolPressed(resultSpeech!)
+                    
+                    isFinal = (result?.isFinal)!
+                }
+                
+                if error != nil || isFinal {
+                    self.audioEngine.stop()
+                    inputNode.removeTap(onBus: 0)
+                    
+                    self.recognitionRequest = nil
+                    self.recognitionTask = nil
+                    
+                    self.microphoneButton.isEnabled = true
+                }
+            })
+            
+            let recordingFormat = inputNode.outputFormat(forBus: 0)
+            inputNode.installTap(onBus: 0, bufferSize: 1024, format: recordingFormat) { (buffer, when) in
+                self.recognitionRequest?.append(buffer)
+            }
+            
+            audioEngine.prepare()
+            
+            do {
+                try audioEngine.start()
+            } catch {
+                print("audioEngine couldn't start because of an error.")
+            }
+            
         }
-        else if segue.identifier == "ScrollViewControllerSegue" {
-            let destinationVC = segue.destination as! ScrollViewController
-            destinationVC.delegate = delegate
+        
+        func speechRecognizer(_ speechRecognizer: SFSpeechRecognizer, availabilityDidChange available: Bool) {
+            if available {
+                microphoneButton.isEnabled = true
+            } else {
+                microphoneButton.isEnabled = false
+            }
         }
-    }
+        
+        override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+            if segue.identifier == "InputViewSegue"{
+                let destinationVC = segue.destination as! AdditionViewController
+                destinationVC.delegate = delegate
+                
+            }
+            else if segue.identifier == "ScrollViewControllerSegue" {
+                let destinationVC = segue.destination as! ScrollViewController
+                destinationVC.delegate = delegate
+            }
+        }
+        
+        
+}
 
-    }
+
+
+
+
+
+
+
+
+
 
 
 

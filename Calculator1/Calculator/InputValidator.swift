@@ -10,11 +10,13 @@ import Foundation
 
 class InputValidator : CalculatorInterface
 {
-    private var inputValue: String!
+    var inputValue: String!
     let output = Output.shared
     var brain = Brain()
     var dot = false
-    private var memoryVal: Int = 0
+    
+//    var countLeftBrackets: Int = 0
+//    var countRightBrackets: Int = 0
     
     func digit(_ value: Int){
         if inputValue == nil || inputValue == "0" {
@@ -56,8 +58,8 @@ class InputValidator : CalculatorInterface
                 inputValue = inputValue + (" +")
             }
             dot = false
-            brain.pressEquation(equation: inputValue)
-//            output.displayHistory(historyValue: inputValue)
+            
+            output.displayHistory(historyValue: inputValue)
             
         case .minus :
 
@@ -79,15 +81,14 @@ class InputValidator : CalculatorInterface
                 inputValue = inputValue + (" -")
             }
             dot = false
-            brain.pressEquation(equation: inputValue)
-//            output.displayHistory(historyValue: inputValue)
+            output.displayHistory(historyValue: inputValue)
             
             
         case .mult :
 
             if inputValue == nil || inputValue == "" || inputValue == "0"{
                 
-                inputValue = "0"
+                inputValue = ""
             }
             else if inputValue.characters.last == "."{
                 inputValue! += "0 ×"
@@ -104,15 +105,15 @@ class InputValidator : CalculatorInterface
                 inputValue = inputValue + (" ×")
             }
             dot = false
-            brain.pressEquation(equation: inputValue)
-//            output.displayHistory(historyValue: inputValue)
+            
+            output.displayHistory(historyValue: inputValue)
             
         case .div :
             dot = false
 
             if inputValue == nil || inputValue == "" || inputValue == "0"{
                 
-                inputValue = "0"
+                inputValue = ""
             }
             else if  inputValue.characters.last == "+" || inputValue.characters.last == "-"
                 || inputValue.characters.last == "×" || inputValue.characters.last == "÷"
@@ -124,15 +125,15 @@ class InputValidator : CalculatorInterface
             else  {
                 inputValue = inputValue + (" ÷")
             }
-            brain.pressEquation(equation: inputValue)
-//            output.displayHistory(historyValue: inputValue)
+            
+            output.displayHistory(historyValue: inputValue)
 
         case .pow :
             dot = false
 
             if inputValue == nil || inputValue == "" || inputValue == "0"{
                 
-                inputValue = "0"
+                inputValue = ""
             }
             else if  inputValue.characters.last == "+" || inputValue.characters.last == "-"
                 || inputValue.characters.last == "×" || inputValue.characters.last == "÷"
@@ -144,23 +145,23 @@ class InputValidator : CalculatorInterface
             else  {
                 inputValue = inputValue + (" ^")
             }
-            brain.pressEquation(equation: inputValue)
-//            output.displayHistory(historyValue: inputValue)
+            
+            output.displayHistory(historyValue: inputValue)
             
         case .equal :
             dot = false
+
 //            brain.clear()
 //            inputValue = nil
             brain.equalPress()
              inputValue = nil
            
             
-        default : break 
+        default : break
             
         }
      
     }
-    
     func function(_ function: Function){
         switch function {
         case .sqrt:
@@ -177,12 +178,27 @@ class InputValidator : CalculatorInterface
             else if inputValue.characters.last != "." {
                 inputValue = inputValue + (" √")
             }
-            brain.pressEquation(equation: inputValue)
-//            output.displayHistory(historyValue: inputValue)
+            
+            output.displayHistory(historyValue: inputValue)
 
         case .sin:
             dot = false
 
+//            if inputValue == nil || inputValue == "" || inputValue == "0" {
+//                inputValue = "sin ("
+//             }
+//            else if inputValue.characters.last! >= "0" && inputValue.characters.last! <= "9"
+//                || inputValue.characters.last == "π" || inputValue.characters.last == "e"
+//                || inputValue.characters.last == ")" {
+//                
+//                inputValue = inputValue + " × sin ("
+//            }
+//            else if inputValue.characters.last != "." {
+//                inputValue = inputValue + " sin ("
+//            }
+//            output.displayHistory(historyValue: inputValue)
+
+            
             if inputValue == nil || inputValue == "" || inputValue == "0" {
                 inputValue = "sin "
             }
@@ -191,8 +207,7 @@ class InputValidator : CalculatorInterface
             } else {
                 inputValue = inputValue + " sin "
             }
-             brain.pressEquation(equation: inputValue)
-//                output.displayHistory(historyValue: inputValue)
+                output.displayHistory(historyValue: inputValue)
             
         case .cos:
             dot = false
@@ -207,8 +222,7 @@ class InputValidator : CalculatorInterface
             else if inputValue.characters.last != "." {
                 inputValue = inputValue + " cos "
             }
-             brain.pressEquation(equation: inputValue)
-//            output.displayHistory(historyValue: inputValue)
+            output.displayHistory(historyValue: inputValue)
             
         case .tan:
             dot = false
@@ -222,8 +236,7 @@ class InputValidator : CalculatorInterface
             else if inputValue.characters.last != "." {
                 inputValue = inputValue + " tan "
             }
-             brain.pressEquation(equation: inputValue)
-//            output.displayHistory(historyValue: inputValue)
+            output.displayHistory(historyValue: inputValue)
             
         case .sinh:
             dot = false
@@ -235,8 +248,7 @@ class InputValidator : CalculatorInterface
             } else {
                 inputValue = inputValue + " sinh "
             }
-             brain.pressEquation(equation: inputValue)
-//            output.displayHistory(historyValue: inputValue)
+            output.displayHistory(historyValue: inputValue)
 
             
         case .cosh:
@@ -249,8 +261,7 @@ class InputValidator : CalculatorInterface
             } else {
                 inputValue = inputValue + " cosh "
             }
-             brain.pressEquation(equation: inputValue)
-//            output.displayHistory(historyValue: inputValue)
+            output.displayHistory(historyValue: inputValue)
             
         case .tanh:
             dot = false
@@ -262,8 +273,7 @@ class InputValidator : CalculatorInterface
             } else {
                 inputValue = inputValue + " tanh "
             }
-             brain.pressEquation(equation: inputValue)
-//            output.displayHistory(historyValue: inputValue)
+            output.displayHistory(historyValue: inputValue)
             
         case .ln:
             dot = false
@@ -274,8 +284,7 @@ class InputValidator : CalculatorInterface
             } else {
                 inputValue = inputValue + " ln ("
             }
-             brain.pressEquation(equation: inputValue)
-//            output.displayHistory(historyValue: inputValue)
+            output.displayHistory(historyValue: inputValue)
             
         case .log:
             dot = false
@@ -286,8 +295,7 @@ class InputValidator : CalculatorInterface
             } else {
                 inputValue = inputValue + " log ("
             }
-             brain.pressEquation(equation: inputValue)
-//            output.displayHistory(historyValue: inputValue)
+            output.displayHistory(historyValue: inputValue)
             
         case .fact:
             dot = false
@@ -297,9 +305,7 @@ class InputValidator : CalculatorInterface
             else if inputValue.characters.last! >= "0" && inputValue.characters.last! <= "9" || inputValue.characters.last == "π" || inputValue.characters.last == "e" {
                 inputValue = inputValue + (" !")
             }
-            
             brain.pressEquation(equation: inputValue)
-            
         case .percent:
             if inputValue == nil || inputValue == "" {
                 inputValue = "0"
@@ -344,7 +350,7 @@ class InputValidator : CalculatorInterface
                 inputValue = inputValue + " ("
             }
             brain.pressEquation(equation: inputValue)
-//            output.displayHistory(historyValue: inputValue)
+            output.displayHistory(historyValue: inputValue)
 
         case .rightBracket:
             if inputValue == nil || inputValue == "" || inputValue == "0"{
@@ -355,7 +361,7 @@ class InputValidator : CalculatorInterface
                 
             }
             brain.pressEquation(equation: inputValue)
-//            output.displayHistory(historyValue: inputValue)
+            output.displayHistory(historyValue: inputValue)
             
         default:
             break
@@ -370,28 +376,6 @@ class InputValidator : CalculatorInterface
             inputValue = nil
             brain.clear()
         
-        case .memoryAdd:
-            if inputValue == nil || inputValue == "" || inputValue == "0" {
-                memoryVal = 0
-            }
-            else {
-                memoryVal = memoryVal + Int(brain.getResult())!
-            }
-
-        case .memoryClean:
-            memoryVal = 0
-            
-        case .memoryRemove:
-            if inputValue == nil || inputValue == "" || inputValue == "0" {
-                memoryVal = 0
-            }
-            else {
-                memoryVal = memoryVal - Int(brain.getResult())!
-            }
-
-        case .memoryRead:
-            digit(memoryVal)
-            
         default:
             break
         }
@@ -411,7 +395,6 @@ class InputValidator : CalculatorInterface
                 inputValue = inputValue + " \(String(Double.pi))"
             }
             dot = true
-            
             brain.pressEquation(equation: inputValue)
        
         case .pi2:
@@ -426,7 +409,6 @@ class InputValidator : CalculatorInterface
                 inputValue = inputValue + " \(String(Double.pi/2))"
             }
             dot = true
-            
             brain.pressEquation(equation: inputValue)
             
 
@@ -443,7 +425,7 @@ class InputValidator : CalculatorInterface
                 inputValue = inputValue + " \(String(M_E))"
             }
             dot = true
-
+//           output.displayHistory(historyValue: inputValue)
              brain.pressEquation(equation: inputValue)
             
         case .ex:
@@ -457,8 +439,8 @@ class InputValidator : CalculatorInterface
             else if inputValue.characters.last != "."{
                 inputValue = inputValue + (" e^")
             }
-            brain.pressEquation(equation: inputValue)
-
+           
+            output.displayHistory(historyValue: inputValue)
 
         default:
             break

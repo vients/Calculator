@@ -8,49 +8,50 @@
 
 import UIKit
 
-class MainViewController: UIViewController, InputDelegate {
+class MainViewController: UIViewController, InputDelegate  {
     
     var validator  = InputValidator()
     
     func enterDigit(_ value: String) {
-//        brain.digit(Int(vaue)!)
-//        print("mainValue == \(vaue)")
+
+        print("mainValue == \(value)")
         
-         if value == "+" || value == "-" || value == "×" || value == "÷" || value == "^" || value == "="
-        {
-            validator.operation(Operation(rawValue: value)!)
-        }
-        else if value == "√" || value == "sin" || value == "cos" || value == "tan" || value == "ln"
-            || value == "log" || value == "!" || value == "%" || value == "sinh" || value == "cosh" || value == "tanh"
-        {
-            validator.function(Function(rawValue: value)!)
-        }
-        else if value == "." || value == "(" || value == ")"
-        {
-            validator.Utility(Utility(rawValue: value)!)
-        }
-        else if value == "π" || value == "π/2" || value == "e" || value == "e^"
-         {
-            validator.Constants(Constants(rawValue: value)!)
-        }
-        else if value == "AC"
-         {
-            validator.memory(Memory(rawValue: value)!)
-         }
-        else {
-            validator.digit(Int(value)!)
+            if value == "+" || value == "-" || value == "×" || value == "÷" || value == "^" || value == "="
+            {
+                validator.operation(Operation(rawValue: value)!)
+            }
+            else if value == "√" || value == "sin" || value == "cos" || value == "tan" || value == "ln"
+                || value == "log" || value == "!" || value == "%" || value == "sinh" || value == "cosh" || value == "tanh"
+            {
+                validator.function(Function(rawValue: value)!)
+            }
+            else if value == "." || value == "(" || value == ")"
+            {
+                validator.Utility(Utility(rawValue: value)!)
+            }
+            else if value == "π" || value == "π/2" || value == "e" || value == "e^"
+            {
+                validator.Constants(Constants(rawValue: value)!)
+            }
+            else if value == "AC" || value == "mc" || value == "m+" || value == "m-" || value == "mr"
+            {
+                validator.memory(Memory(rawValue: value)!)
+            }
+ 
+            else if Int(value as? String ?? "") != nil
+            {
+
+                validator.digit(Int(value)!)
+            }
+            else {
+                print("Invalid operation")
         }
 
     }
     
+    
         override func viewDidLoad() {
         super.viewDidLoad()
-//            validator.resultClosure = {Double,Error -> Void in
-//                if let resultValue = result {
-//                
-//                }
-//            }
-        
     }
     
     override func didReceiveMemoryWarning() {

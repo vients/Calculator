@@ -28,20 +28,10 @@ class AdditionViewController: UIViewController, InputInterface {
     }
     
     @IBAction func buttonPress(_ sender: UIButton) {
-        symbolPressed(sender.currentTitle!)
         
-        if sender.currentTitle == "AC"{
-            sender.shake()
-        }
-        else if sender.currentTitle == "="
-        {
-            sender.pulsate()
-        }
-        else {
-            sender.flash()
-        }
+        symbolPressed(sender.currentTitle!)
+        sender.flash()
         playClick()
-
     }
     
     func playClick() {

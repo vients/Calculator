@@ -16,7 +16,7 @@
 		750ADC031F8B689100ECC6A4 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750ADC021F8B689100ECC6A4 /* InfoViewController.swift */; };
 		750EE65C1F92100200E5E7F8 /* InputValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750EE65B1F92100200E5E7F8 /* InputValidator.swift */; };
 		753BD9D41F8B552F001FD692 /* InputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753BD9D31F8B552F001FD692 /* InputViewController.swift */; };
-		7550F1611F9A95A4008F6D88 /* ButtonAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7550F1601F9A95A4008F6D88 /* ButtonAnimation.swift */; };
+		7550F1631F9A9E4C008F6D88 /* ButtonAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7550F1621F9A9E4C008F6D88 /* ButtonAnimation.swift */; };
 		75F6E1311F83C7E7002D0AE0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F6E1301F83C7E7002D0AE0 /* AppDelegate.swift */; };
 		75F6E1361F83C7E7002D0AE0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 75F6E1341F83C7E7002D0AE0 /* Main.storyboard */; };
 		75F6E1381F83C7E7002D0AE0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 75F6E1371F83C7E7002D0AE0 /* Assets.xcassets */; };
@@ -52,7 +52,7 @@
 		750ADC021F8B689100ECC6A4 /* InfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		750EE65B1F92100200E5E7F8 /* InputValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputValidator.swift; sourceTree = "<group>"; };
 		753BD9D31F8B552F001FD692 /* InputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputViewController.swift; sourceTree = "<group>"; };
-		7550F1601F9A95A4008F6D88 /* ButtonAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonAnimation.swift; sourceTree = "<group>"; };
+		7550F1621F9A9E4C008F6D88 /* ButtonAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonAnimation.swift; sourceTree = "<group>"; };
 		75F6E12D1F83C7E7002D0AE0 /* Calculator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Calculator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		75F6E1301F83C7E7002D0AE0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		75F6E1351F83C7E7002D0AE0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -178,8 +178,8 @@
 				75096A221F8E2B3400D7A234 /* Brain.swift */,
 				750EE65B1F92100200E5E7F8 /* InputValidator.swift */,
 				75096A201F8E29B100D7A234 /* Protocol.swift */,
-				7550F1601F9A95A4008F6D88 /* ButtonAnimation.swift */,
 				7507F9021F8FCD4800429DD7 /* Output.swift */,
+				7550F1621F9A9E4C008F6D88 /* ButtonAnimation.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -322,7 +322,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7507F9031F8FCD4800429DD7 /* Output.swift in Sources */,
-				7550F1611F9A95A4008F6D88 /* ButtonAnimation.swift in Sources */,
+				7550F1631F9A9E4C008F6D88 /* ButtonAnimation.swift in Sources */,
 				753BD9D41F8B552F001FD692 /* InputViewController.swift in Sources */,
 				750879F91F91747400F22E41 /* AdditionViewController.swift in Sources */,
 				750ADC031F8B689100ECC6A4 /* InfoViewController.swift in Sources */,

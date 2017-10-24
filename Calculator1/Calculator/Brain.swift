@@ -13,13 +13,11 @@ class Brain  {
     let output = Output.shared
     var equation: String?
     var history: String?
-    private var memory: String?
        
     func pressEquation(equation: String){
         
         self.history = equation
         self.equation = equation
-        print("equation = \(equation)")
         operationCalculate()
     }
     
@@ -30,11 +28,13 @@ class Brain  {
     }
     
     func calculateResult() -> Double {
+        
         if equation == nil {
             equation = "0"
         }
-        let rpnStr = reverseToPolandNotation(tokens: parseInfix(equation ?? "")) //  RPN
-        var stack : [String] = [] // stack for digit
+        
+        let rpnStr = reverseToPolandNotation(tokens: parseInfix(equation ?? "")) // reverse to RPN
+        var stack : [String] = [] // buffer for digit
         
         for tok in rpnStr {
             if Double(tok) != nil  {
@@ -50,6 +50,7 @@ class Brain  {
                                         || tok == Function.cosh.rawValue
                                         || tok == Function.tanh.rawValue
                                         || tok == Function.fact.rawValue
+//                                        || tok == Constants.e.rawValue
                                         || tok == Constants.pi.rawValue
                                         || tok == Constants.ex.rawValue)
                                         || tok == Function.percent.rawValue {
@@ -75,7 +76,11 @@ class Brain  {
                     case Function.sqrt.rawValue:
                         stack += [String(sqrt(operand))]
                     case Function.fact.rawValue:
-                        stack += [String(factorial(operand))]
+                        stack += [String(factorial(Int(operand)))]
+//                    case Constants.e.rawValue:
+////                        let operand = M_E
+//                        stack = ["2.777"]
+//                        stack += [String(M_E(operand))]
                     case Function.percent.rawValue:
                         stack += [String(percent(perValue: Int(operand)))]
                     case Constants.ex.rawValue:
@@ -104,12 +109,12 @@ class Brain  {
                         }
                     }
                 } else {
+//                    history = "error"
                     return 0.0
                 }
             }
         }
         
-        print("stackResult = \(stack)")
         return Double(stack.removeLast())!
     }
     
@@ -117,7 +122,7 @@ class Brain  {
         var rpn : [String]   = [] // buffer for entire equation in RPN
         var stack : [String] = [] // buffer for operation
         
-        // dictionary with priority operation
+        // dictionary with precedence of operation
         let operationPrec: Dictionary<String, Int> = [
             Operation.pow.rawValue: 4,
             Function.sqrt.rawValue: 5,
@@ -137,6 +142,7 @@ class Brain  {
             Function.percent.rawValue: 5
             ]
         
+        // loop take 1 element and put on the right place and drop brackets
         for tok in tokens {
             switch tok {
             case Utility.leftBracket.rawValue:
@@ -165,11 +171,11 @@ class Brain  {
                 }
             }
         }
-        print("rpn = \(rpn)")
+        
         return (rpn + stack.reversed())
     }
     
-    func factorial(_ n: Double) -> Double {
+    func factorial(_ n: Int) -> Int {
         if n == 0 {
             return 1
         }
@@ -196,23 +202,19 @@ class Brain  {
     }
     
     func operationCalculate() {
-       let result = calculateResult()
-        memory = String(format: "%g", Double(result))
+        let result = calculateResult()
         
         output.display(String(result))
         displayHistory(currentvalue: history!)
     }
-    
 
     func clear() {
-//      equation = nil
+       
+        equation = nil
         output.displayHistory(historyValue: "")
         output.display("0")
     }
-    
-    func getResult() -> String {
-        return memory!
-    }
+
     
 }
 
