@@ -24,15 +24,12 @@ protocol CalculatorInterface {
     func memory(_ memory: Memory)
     func Utility(_ utility: Utility)
     func Constants(_ constants: Constants)
-//    var resultClosure: ((Double?, Error?) -> Void) { get set }
+    
 }
 
 protocol InputDelegate {
     func enterDigit(_ value: String)
-   }
-
-protocol MainViewControllerDelegate {
-    func outputDisplay(_ result: String)
+    func soundTap()
 }
 
 enum Operation: String {

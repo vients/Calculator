@@ -15,6 +15,7 @@ class InfoViewController: UIViewController, OutputInterface  {
     @IBOutlet private weak var historyLabel: UILabel!
     @IBOutlet private weak var resultLabel: UILabel!
     
+    @IBOutlet weak var soundButton: UIButton!
     
     func display(_ result: String) {
         resultLabel.text =  result
@@ -28,6 +29,7 @@ class InfoViewController: UIViewController, OutputInterface  {
     override func viewDidLoad() {
         super.viewDidLoad()
         output.displayText = self
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -35,6 +37,20 @@ class InfoViewController: UIViewController, OutputInterface  {
         // Dispose of any resources that can be recreated.
     }
     
-    
+//    var soundIsActive : Bool = false {
+//        didSet {
+//            if soundIsActive {
+//                soundButton.setImage(#imageLiteral(resourceName: "speaker"), for: .normal)
+//                print("ON")
+//            } else {
+//                soundButton.setImage(#imageLiteral(resourceName: "mute"), for: .normal)
+//                print("OFF")
+//            }
+//        }
+//    }
+//    
+//    @IBAction func soundButton(_ sender: Any) {
+//        soundIsActive = !soundIsActive
+//    }
     
 }

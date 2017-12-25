@@ -20,11 +20,11 @@ class InputValidator : CalculatorInterface
         if inputValue == nil || inputValue == "0" {
             inputValue = String(value)
         }
-        else if inputValue.characters.last == "." || inputValue.characters.last! >= "0" && inputValue.characters.last! <= "9" || (inputValue.characters.count == 1 &&
-            (inputValue.characters.last == "+" || inputValue.characters.last == "-"))  {
+        else if inputValue.last == "." || inputValue.last! >= "0" && inputValue.last! <= "9" || (inputValue.count == 1 &&
+            (inputValue.last == "+" || inputValue.last == "-"))  {
             inputValue = inputValue + "\(value)"
         }
-        else if inputValue.characters.last == ")" {
+        else if inputValue.last == ")" {
             inputValue = inputValue + " × \(value)"
         }
         else {
@@ -37,67 +37,67 @@ class InputValidator : CalculatorInterface
     func operation(_ operation: Operation){
         switch operation {
         case .plus :
-
+            
             if inputValue == nil || inputValue == "" || inputValue == "0"{
                 
                 inputValue = "+"
             }
-            else if inputValue.characters.last == "."{
+            else if inputValue.last == "."{
                 inputValue! += "0 +"
             }
-            else if  inputValue.characters.last == "+" || inputValue.characters.last == "-"
-                || inputValue.characters.last == "×" || inputValue.characters.last == "÷"
-                || inputValue.characters.last == "^"  {
+            else if  inputValue.last == "+" || inputValue.last == "-"
+                || inputValue.last == "×" || inputValue.last == "÷"
+                || inputValue.last == "^"  {
                 
-                 inputValue.characters.removeLast()
-                 inputValue = inputValue + ("+")
+                inputValue.removeLast()
+                inputValue = inputValue + ("+")
             }
             else {
                 inputValue = inputValue + (" +")
             }
             dot = false
             brain.pressEquation(equation: inputValue)
-//            output.displayHistory(historyValue: inputValue)
+            //            output.displayHistory(historyValue: inputValue)
             
         case .minus :
-
+            
             if inputValue == nil || inputValue == "" || inputValue == "0"
             {
                 inputValue = "-"
             }
-            else if inputValue.characters.last == "."{
+            else if inputValue.last == "."{
                 inputValue! += "0 -"
             }
-            else if  inputValue.characters.last == "+" || inputValue.characters.last == "-"
-                || inputValue.characters.last == "×" || inputValue.characters.last == "÷"
-                || inputValue.characters.last == "^" {
+            else if  inputValue.last == "+" || inputValue.last == "-"
+                || inputValue.last == "×" || inputValue.last == "÷"
+                || inputValue.last == "^" {
                 
-                inputValue.characters.removeLast()
+                inputValue.removeLast()
                 inputValue = inputValue + ("-")
             }
-            else if inputValue.characters.last != "√"  {
+            else if inputValue.last != "√"  {
                 inputValue = inputValue + (" -")
             }
             dot = false
             brain.pressEquation(equation: inputValue)
-//            output.displayHistory(historyValue: inputValue)
+            //            output.displayHistory(historyValue: inputValue)
             
             
         case .mult :
-
+            
             if inputValue == nil || inputValue == "" || inputValue == "0"{
                 
                 inputValue = "0"
             }
-            else if inputValue.characters.last == "."{
+            else if inputValue.last == "."{
                 inputValue! += "0 ×"
             }
-            
-            else if  inputValue.characters.last == "+" || inputValue.characters.last == "-"
-                || inputValue.characters.last == "×" || inputValue.characters.last == "÷"
-                || inputValue.characters.last == "^"  {
                 
-                inputValue.characters.removeLast()
+            else if  inputValue.last == "+" || inputValue.last == "-"
+                || inputValue.last == "×" || inputValue.last == "÷"
+                || inputValue.last == "^"  {
+                
+                inputValue.removeLast()
                 inputValue = inputValue + ("×")
             }
             else   {
@@ -105,196 +105,196 @@ class InputValidator : CalculatorInterface
             }
             dot = false
             brain.pressEquation(equation: inputValue)
-//            output.displayHistory(historyValue: inputValue)
+            //            output.displayHistory(historyValue: inputValue)
             
         case .div :
             dot = false
-
+            
             if inputValue == nil || inputValue == "" || inputValue == "0"{
                 
                 inputValue = "0"
             }
-            else if  inputValue.characters.last == "+" || inputValue.characters.last == "-"
-                || inputValue.characters.last == "×" || inputValue.characters.last == "÷"
-                || inputValue.characters.last == "^"  {
+            else if  inputValue.last == "+" || inputValue.last == "-"
+                || inputValue.last == "×" || inputValue.last == "÷"
+                || inputValue.last == "^"  {
                 
-                inputValue.characters.removeLast()
+                inputValue.removeLast()
                 inputValue = inputValue + ("÷")
             }
             else  {
                 inputValue = inputValue + (" ÷")
             }
             brain.pressEquation(equation: inputValue)
-//            output.displayHistory(historyValue: inputValue)
-
+            //            output.displayHistory(historyValue: inputValue)
+            
         case .pow :
             dot = false
-
+            
             if inputValue == nil || inputValue == "" || inputValue == "0"{
                 
                 inputValue = "0"
             }
-            else if  inputValue.characters.last == "+" || inputValue.characters.last == "-"
-                || inputValue.characters.last == "×" || inputValue.characters.last == "÷"
-                || inputValue.characters.last == "^"  {
+            else if  inputValue.last == "+" || inputValue.last == "-"
+                || inputValue.last == "×" || inputValue.last == "÷"
+                || inputValue.last == "^"  {
                 
-                inputValue.characters.removeLast()
+                inputValue.removeLast()
                 inputValue = inputValue + ("^")
             }
             else  {
                 inputValue = inputValue + (" ^")
             }
             brain.pressEquation(equation: inputValue)
-//            output.displayHistory(historyValue: inputValue)
+            //            output.displayHistory(historyValue: inputValue)
             
         case .equal :
             dot = false
-//            brain.clear()
-//            inputValue = nil
+            //            brain.clear()
+            //            inputValue = nil
             brain.equalPress()
-             inputValue = nil
-           
+            inputValue = nil
+            
             
         default : break 
             
         }
-     
+        
     }
     
     func function(_ function: Function){
         switch function {
         case .sqrt:
             dot = false
-
+            
             if inputValue == nil || inputValue == "" || inputValue == "0" {
                 inputValue = "√"
             }
-            else if inputValue.characters.last! >= "0" && inputValue.characters.last! <= "9" || inputValue.characters.last == "π" || inputValue.characters.last == "e"
-                || inputValue.characters.last == "!" || inputValue.characters.last == ")"
+            else if inputValue.last! >= "0" && inputValue.last! <= "9" || inputValue.last == "π" || inputValue.last == "e"
+                || inputValue.last == "!" || inputValue.last == ")"
             {
                 inputValue = inputValue + (" × √")
             }
-            else if inputValue.characters.last != "." {
+            else if inputValue.last != "." {
                 inputValue = inputValue + (" √")
             }
             brain.pressEquation(equation: inputValue)
-//            output.displayHistory(historyValue: inputValue)
-
+            //            output.displayHistory(historyValue: inputValue)
+            
         case .sin:
             dot = false
-
+            
             if inputValue == nil || inputValue == "" || inputValue == "0" {
                 inputValue = "sin "
             }
-             else if inputValue.characters.last == ")" || inputValue.characters.last! >= "0" && inputValue.characters.last! <= "9" {
+            else if inputValue.last == ")" || inputValue.last! >= "0" && inputValue.last! <= "9" {
                 inputValue = inputValue + " × sin "
             } else {
                 inputValue = inputValue + " sin "
             }
-             brain.pressEquation(equation: inputValue)
-//                output.displayHistory(historyValue: inputValue)
+            brain.pressEquation(equation: inputValue)
+            //                output.displayHistory(historyValue: inputValue)
             
         case .cos:
             dot = false
             if inputValue == nil || inputValue == "" || inputValue == "0"{
                 inputValue = "cos "
             }
-            else if inputValue.characters.last! >= "0" && inputValue.characters.last! <= "9"
-                || inputValue.characters.last == "π" || inputValue.characters.last == "e"
-                || inputValue.characters.last == ")"  {
+            else if inputValue.last! >= "0" && inputValue.last! <= "9"
+                || inputValue.last == "π" || inputValue.last == "e"
+                || inputValue.last == ")"  {
                 inputValue = inputValue + " × cos "
             }
-            else if inputValue.characters.last != "." {
+            else if inputValue.last != "." {
                 inputValue = inputValue + " cos "
             }
-             brain.pressEquation(equation: inputValue)
-//            output.displayHistory(historyValue: inputValue)
+            brain.pressEquation(equation: inputValue)
+            //            output.displayHistory(historyValue: inputValue)
             
         case .tan:
             dot = false
             if inputValue == nil || inputValue == "" || inputValue == "0"{
                 inputValue = "tan "
             }
-            else if inputValue.characters.last! >= "0" && inputValue.characters.last! <= "9" || inputValue.characters.last == "π" || inputValue.characters.last == "e"
-                || inputValue.characters.last == ")" {
+            else if inputValue.last! >= "0" && inputValue.last! <= "9" || inputValue.last == "π" || inputValue.last == "e"
+                || inputValue.last == ")" {
                 inputValue = inputValue + " × tan "
             }
-            else if inputValue.characters.last != "." {
+            else if inputValue.last != "." {
                 inputValue = inputValue + " tan "
             }
-             brain.pressEquation(equation: inputValue)
-//            output.displayHistory(historyValue: inputValue)
+            brain.pressEquation(equation: inputValue)
+            //            output.displayHistory(historyValue: inputValue)
             
         case .sinh:
             dot = false
             if inputValue == nil || inputValue == "" || inputValue == "0" {
                 inputValue = "sinh "
             }
-            else if inputValue.characters.last == ")" || inputValue.characters.last! >= "0" && inputValue.characters.last! <= "9" {
+            else if inputValue.last == ")" || inputValue.last! >= "0" && inputValue.last! <= "9" {
                 inputValue = inputValue + " × sinh "
             } else {
                 inputValue = inputValue + " sinh "
             }
-             brain.pressEquation(equation: inputValue)
-//            output.displayHistory(historyValue: inputValue)
-
+            brain.pressEquation(equation: inputValue)
+            //            output.displayHistory(historyValue: inputValue)
+            
             
         case .cosh:
             dot = false
             if inputValue == nil || inputValue == "" || inputValue == "0" {
                 inputValue = "cosh "
             }
-            else if inputValue.characters.last == ")" || inputValue.characters.last! >= "0" && inputValue.characters.last! <= "9" {
+            else if inputValue.last == ")" || inputValue.last! >= "0" && inputValue.last! <= "9" {
                 inputValue = inputValue + " × cosh "
             } else {
                 inputValue = inputValue + " cosh "
             }
-             brain.pressEquation(equation: inputValue)
-//            output.displayHistory(historyValue: inputValue)
+            brain.pressEquation(equation: inputValue)
+            //            output.displayHistory(historyValue: inputValue)
             
         case .tanh:
             dot = false
             if inputValue == nil || inputValue == "" || inputValue == "0" {
                 inputValue = "tanh "
             }
-            else if inputValue.characters.last == ")" || inputValue.characters.last! >= "0" && inputValue.characters.last! <= "9" {
+            else if inputValue.last == ")" || inputValue.last! >= "0" && inputValue.last! <= "9" {
                 inputValue = inputValue + " × tanh "
             } else {
                 inputValue = inputValue + " tanh "
             }
-             brain.pressEquation(equation: inputValue)
-//            output.displayHistory(historyValue: inputValue)
+            brain.pressEquation(equation: inputValue)
+            //            output.displayHistory(historyValue: inputValue)
             
         case .ln:
             dot = false
             if inputValue == nil || inputValue == "" || inputValue == "0" {
                 inputValue = "ln "
-            } else if inputValue.characters.last == ")" || inputValue.characters.last! >= "0" && inputValue.characters.last! <= "9" {
+            } else if inputValue.last == ")" || inputValue.last! >= "0" && inputValue.last! <= "9" {
                 inputValue = inputValue + " × ln ("
             } else {
                 inputValue = inputValue + " ln ("
             }
-             brain.pressEquation(equation: inputValue)
-//            output.displayHistory(historyValue: inputValue)
+            brain.pressEquation(equation: inputValue)
+            //            output.displayHistory(historyValue: inputValue)
             
         case .log:
             dot = false
             if inputValue == nil || inputValue == "" || inputValue == "0" {
                 inputValue = "log "
-            } else if inputValue.characters.last == ")" || inputValue.characters.last! >= "0" && inputValue.characters.last! <= "9" {
+            } else if inputValue.last == ")" || inputValue.last! >= "0" && inputValue.last! <= "9" {
                 inputValue = inputValue + " × log ("
             } else {
                 inputValue = inputValue + " log ("
             }
-             brain.pressEquation(equation: inputValue)
-//            output.displayHistory(historyValue: inputValue)
+            brain.pressEquation(equation: inputValue)
+            //            output.displayHistory(historyValue: inputValue)
             
         case .fact:
             dot = false
             if inputValue == nil || inputValue == "" {
                 inputValue = "0"
             }
-            else if inputValue.characters.last! >= "0" && inputValue.characters.last! <= "9" || inputValue.characters.last == "π" || inputValue.characters.last == "e" {
+            else if inputValue.last! >= "0" && inputValue.last! <= "9" || inputValue.last == "π" || inputValue.last == "e" {
                 inputValue = inputValue + (" !")
             }
             
@@ -304,58 +304,58 @@ class InputValidator : CalculatorInterface
             if inputValue == nil || inputValue == "" {
                 inputValue = "0"
             }
-            else if inputValue.characters.last! >= "0" && inputValue.characters.last! <= "9" {
+            else if inputValue.last! >= "0" && inputValue.last! <= "9" {
                 inputValue = inputValue + (" %")
             }
             brain.pressEquation(equation: inputValue)
-        
+            
         default:
             break
         }
     }
-   
+    
     func Utility(_ utility: Utility){
         switch utility {
         case .dot:
             if inputValue == nil || inputValue == "0" || inputValue == "" {
                 inputValue = "0."
                 dot = true
-            } else if inputValue.characters.last != "." && dot == false {
-                if inputValue.characters.last! >= "0" && inputValue.characters.last! <= "9" {
+            } else if inputValue.last != "." && dot == false {
+                if inputValue.last! >= "0" && inputValue.last! <= "9" {
                     inputValue! += "."
                     dot = true
-                } else if inputValue.characters.last == "(" || inputValue.characters.last == "+" || inputValue.characters.last == "-"
-                || inputValue.characters.last == "×" || inputValue.characters.last == "÷" {
+                } else if inputValue.last == "(" || inputValue.last == "+" || inputValue.last == "-"
+                    || inputValue.last == "×" || inputValue.last == "÷" {
                     inputValue = inputValue + " 0."
                     dot = true
                 }
             }
             brain.pressEquation(equation: inputValue)
-//            output.displayHistory(historyValue: inputValue)
+            //            output.displayHistory(historyValue: inputValue)
             
         case .leftBracket:
             if inputValue == nil || inputValue == "" || inputValue == "0" {
                 inputValue = "("
             }
-            else if inputValue.characters.last! >= "0" && inputValue.characters.last! <= "9"{
+            else if inputValue.last! >= "0" && inputValue.last! <= "9"{
                 inputValue = inputValue + " × ("
             }
             else{
                 inputValue = inputValue + " ("
             }
             brain.pressEquation(equation: inputValue)
-//            output.displayHistory(historyValue: inputValue)
-
+            //            output.displayHistory(historyValue: inputValue)
+            
         case .rightBracket:
             if inputValue == nil || inputValue == "" || inputValue == "0"{
                 inputValue = "0"
             }
-            else if inputValue.characters.last != "(" {
+            else if inputValue.last != "(" {
                 inputValue = inputValue + " )"
                 
             }
             brain.pressEquation(equation: inputValue)
-//            output.displayHistory(historyValue: inputValue)
+            //            output.displayHistory(historyValue: inputValue)
             
         default:
             break
@@ -365,11 +365,11 @@ class InputValidator : CalculatorInterface
     
     func memory(_ memory: Memory){
         switch memory {
-        
+            
         case .allClean:
             inputValue = nil
             brain.clear()
-        
+            
         case .memoryAdd:
             if inputValue == nil || inputValue == "" || inputValue == "0" {
                 memoryVal = 0
@@ -377,7 +377,7 @@ class InputValidator : CalculatorInterface
             else {
                 memoryVal = memoryVal + Int(brain.getResult())!
             }
-
+            
         case .memoryClean:
             memoryVal = 0
             
@@ -388,7 +388,7 @@ class InputValidator : CalculatorInterface
             else {
                 memoryVal = memoryVal - Int(brain.getResult())!
             }
-
+            
         case .memoryRead:
             digit(memoryVal)
             
@@ -403,63 +403,62 @@ class InputValidator : CalculatorInterface
             if inputValue == nil || inputValue == "" || inputValue == "0" {
                 inputValue = String(Double.pi)
             }
-            else if inputValue.characters.last! >= "0" && inputValue.characters.last! <= "9" || inputValue.characters.last == "π" || inputValue.characters.last == "e"
-                || inputValue.characters.last == ")" {
+            else if inputValue.last! >= "0" && inputValue.last! <= "9" || inputValue.last == "π" || inputValue.last == "e"
+                || inputValue.last == ")" {
                 inputValue = inputValue + " \(String(Double.pi))"
             }
-            else if inputValue.characters.last != "."{
+            else if inputValue.last != "."{
                 inputValue = inputValue + " \(String(Double.pi))"
             }
             dot = true
             
             brain.pressEquation(equation: inputValue)
-       
+            
         case .pi2:
             if inputValue == nil || inputValue == "" || inputValue == "0" {
                 inputValue = String(Double.pi/2)
             }
-            else if inputValue.characters.last! >= "0" && inputValue.characters.last! <= "9" || inputValue.characters.last == "π" || inputValue.characters.last == "e"
-                || inputValue.characters.last == ")" {
+            else if inputValue.last! >= "0" && inputValue.last! <= "9" || inputValue.last == "π" || inputValue.last == "e"
+                || inputValue.last == ")" {
                 inputValue = inputValue + " \(String(Double.pi/2))"
             }
-            else if inputValue.characters.last != "."{
+            else if inputValue.last != "."{
                 inputValue = inputValue + " \(String(Double.pi/2))"
             }
             dot = true
             
             brain.pressEquation(equation: inputValue)
             
-
+            
             
         case .e:
             if inputValue == nil || inputValue == "" || inputValue == "0"{
                 inputValue = String(M_E)
             }
-            else if inputValue.characters.last! >= "0" && inputValue.characters.last! <= "9" || inputValue.characters.last == "π" || inputValue.characters.last! == "e"
-                || inputValue.characters.last! == ")" {
+            else if inputValue.last! >= "0" && inputValue.last! <= "9" || inputValue.last == "π" || inputValue.last! == "e"
+                || inputValue.last! == ")" {
                 inputValue = inputValue + " \(String(M_E))"
             }
-            else if inputValue.characters.last != "."{
+            else if inputValue.last != "."{
                 inputValue = inputValue + " \(String(M_E))"
             }
             dot = true
-
-             brain.pressEquation(equation: inputValue)
+            
+            brain.pressEquation(equation: inputValue)
             
         case .ex:
             if inputValue == nil || inputValue == "" || inputValue == "0" {
                 inputValue = "e^"
             }
-            else if inputValue.characters.last! >= "0" && inputValue.characters.last! <= "9" || inputValue.characters.last == "π" || inputValue.characters.last! == "e"
-                || inputValue.characters.last! == ")" {
+            else if inputValue.last! >= "0" && inputValue.last! <= "9" || inputValue.last == "π" || inputValue.last! == "e"
+                || inputValue.last! == ")" {
                 inputValue = inputValue + (" × e^")
             }
-            else if inputValue.characters.last != "."{
+            else if inputValue.last != "."{
                 inputValue = inputValue + (" e^")
             }
             brain.pressEquation(equation: inputValue)
-
-
+            
         default:
             break
         }
@@ -468,6 +467,6 @@ class InputValidator : CalculatorInterface
     
     var resultClosure: ((Double?, Error?) -> Void)?
     
-
+    
 }
 

@@ -69,5 +69,5 @@ extension UIButton {
         
         layer.add(flash, forKey: nil)
     }
-
+    
 }

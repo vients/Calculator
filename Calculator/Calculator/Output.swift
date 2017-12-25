@@ -23,7 +23,7 @@ class Output : OutputInterface {
             let diplayResult = String(format: "%g", Double(result)!)
             displayText?.display(diplayResult)
         }
-//         print("\(result)")
+        //         print("\(result)")
     }
     
     func displayHistory(historyValue: String){

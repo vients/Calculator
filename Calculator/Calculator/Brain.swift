@@ -14,7 +14,7 @@ class Brain  {
     var equation: String?
     var history: String?
     private var memory: String?
-       
+    
     func pressEquation(equation: String){
         
         self.history = equation
@@ -25,7 +25,7 @@ class Brain  {
     
     
     func parseInfix(_ equationStr: String) -> [String] {
-        let tokens = equationStr.characters.split{ $0 == " " }.map(String.init)
+        let tokens = equationStr.split{ $0 == " " }.map(String.init)
         return tokens
     }
     
@@ -41,19 +41,19 @@ class Brain  {
                 stack += [tok]
                 
             } else if !stack.isEmpty && (tok == Function.sin.rawValue
-                                        || tok == Function.cos.rawValue
-                                        || tok == Function.tan.rawValue
-                                        || tok == Function.ln.rawValue
-                                        || tok == Function.sqrt.rawValue
-                                        || tok == Function.log.rawValue
-                                        || tok == Function.sinh.rawValue
-                                        || tok == Function.cosh.rawValue
-                                        || tok == Function.tanh.rawValue
-                                        || tok == Function.fact.rawValue
-                                        || tok == Constants.pi.rawValue
-                                        || tok == Constants.ex.rawValue)
-                                        || tok == Function.percent.rawValue {
-               
+                || tok == Function.cos.rawValue
+                || tok == Function.tan.rawValue
+                || tok == Function.ln.rawValue
+                || tok == Function.sqrt.rawValue
+                || tok == Function.log.rawValue
+                || tok == Function.sinh.rawValue
+                || tok == Function.cosh.rawValue
+                || tok == Function.tanh.rawValue
+                || tok == Function.fact.rawValue
+                || tok == Constants.pi.rawValue
+                || tok == Constants.ex.rawValue)
+                || tok == Function.percent.rawValue {
+                
                 if let operand = Double((stack.removeLast())) {
                     switch tok {
                     case Function.sin.rawValue:
@@ -135,7 +135,7 @@ class Brain  {
             Function.tanh.rawValue: 5,
             Constants.ex.rawValue: 5,
             Function.percent.rawValue: 5
-            ]
+        ]
         
         for tok in tokens {
             switch tok {
@@ -177,35 +177,35 @@ class Brain  {
             return abs(n) * factorial(abs(n) - 1)
         }
     }
-        
+    
     func percent(perValue: Int) -> Double {
         return (Double(perValue) / 100)
     }
-
+    
     func displayHistory(currentvalue: String) {
         output.displayHistory(historyValue: currentvalue)
     }
     
     func equalPress()  {
         
-//      let equalresult = String(format: "%g", calculateResult())
+        //      let equalresult = String(format: "%g", calculateResult())
         let equalresult =  calculateResult()
-
+        
         output.display(String(equalresult))
         output.displayHistory(historyValue: "")
     }
     
     func operationCalculate() {
-       let result = calculateResult()
+        let result = calculateResult()
         memory = String(format: "%g", Double(result))
         
         output.display(String(result))
         displayHistory(currentvalue: history!)
     }
     
-
+    
     func clear() {
-//      equation = nil
+        //      equation = nil
         output.displayHistory(historyValue: "")
         output.display("0")
     }

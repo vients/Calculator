@@ -14,7 +14,7 @@ class ScrollViewController: UIViewController,UIScrollViewDelegate,InputInterface
     @IBOutlet weak var pageControl: UIPageControl!
     
      var delegate: InputDelegate?
-//    var brain = Brain()
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,6 +38,7 @@ class ScrollViewController: UIViewController,UIScrollViewDelegate,InputInterface
     @IBAction func tapOnScrollView(_ sender: UIButton) {
         
         symbolPressed(sender.currentTitle!)
+        delegate?.soundTap()
 //        print(sender.currentTitle!)
     }
     
