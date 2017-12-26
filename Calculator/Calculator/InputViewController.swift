@@ -92,9 +92,7 @@ class InputViewController: UIViewController, InputInterface, SFSpeechRecognizerD
         symbolPressed(sender.currentTitle!)
 //        playClick()
         delegate?.soundTap()
-        
-        
-        
+       
         if sender.currentTitle == "AC"{
             sender.shake()
         }

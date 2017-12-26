@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Brain  {
+class Brain {
     
     let output = Output.shared
     var equation: String?

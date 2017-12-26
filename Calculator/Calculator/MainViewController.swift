@@ -9,7 +9,7 @@
 import UIKit
 import AVFoundation
 
-class MainViewController: UIViewController, InputDelegate  {
+class MainViewController: UIViewController, InputDelegate {
     
     @IBOutlet weak var soundButton: UIButton!
     
@@ -75,10 +75,12 @@ class MainViewController: UIViewController, InputDelegate  {
             print("")
         }
     }
+    
     @IBAction func soundButton(_ sender: Any) {
         soundIsActive = !soundIsActive
         UserDefaults.standard.set(soundIsActive, forKey: "isSaved")
     }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
