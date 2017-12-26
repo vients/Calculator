@@ -37,20 +37,4 @@ class InfoViewController: UIViewController, OutputInterface  {
         // Dispose of any resources that can be recreated.
     }
     
-//    var soundIsActive : Bool = false {
-//        didSet {
-//            if soundIsActive {
-//                soundButton.setImage(#imageLiteral(resourceName: "speaker"), for: .normal)
-//                print("ON")
-//            } else {
-//                soundButton.setImage(#imageLiteral(resourceName: "mute"), for: .normal)
-//                print("OFF")
-//            }
-//        }
-//    }
-//    
-//    @IBAction func soundButton(_ sender: Any) {
-//        soundIsActive = !soundIsActive
-//    }
-    
 }

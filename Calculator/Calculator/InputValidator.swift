@@ -11,7 +11,6 @@ import Foundation
 class InputValidator : CalculatorInterface
 {
     private var inputValue: String!
-    let output = Output.shared
     var brain = Brain()
     var dot = false
     private var memoryVal: Int = 0
@@ -57,7 +56,6 @@ class InputValidator : CalculatorInterface
             }
             dot = false
             brain.pressEquation(equation: inputValue)
-            //            output.displayHistory(historyValue: inputValue)
             
         case .minus :
             
@@ -80,9 +78,7 @@ class InputValidator : CalculatorInterface
             }
             dot = false
             brain.pressEquation(equation: inputValue)
-            //            output.displayHistory(historyValue: inputValue)
-            
-            
+     
         case .mult :
             
             if inputValue == nil || inputValue == "" || inputValue == "0"{
@@ -105,8 +101,7 @@ class InputValidator : CalculatorInterface
             }
             dot = false
             brain.pressEquation(equation: inputValue)
-            //            output.displayHistory(historyValue: inputValue)
-            
+           
         case .div :
             dot = false
             
@@ -125,8 +120,7 @@ class InputValidator : CalculatorInterface
                 inputValue = inputValue + (" ÷")
             }
             brain.pressEquation(equation: inputValue)
-            //            output.displayHistory(historyValue: inputValue)
-            
+          
         case .pow :
             dot = false
             
@@ -145,7 +139,6 @@ class InputValidator : CalculatorInterface
                 inputValue = inputValue + (" ^")
             }
             brain.pressEquation(equation: inputValue)
-            //            output.displayHistory(historyValue: inputValue)
             
         case .equal :
             dot = false
@@ -153,10 +146,7 @@ class InputValidator : CalculatorInterface
             //            inputValue = nil
             brain.equalPress()
             inputValue = nil
-            
-            
-        default : break 
-            
+        
         }
         
     }
@@ -178,7 +168,7 @@ class InputValidator : CalculatorInterface
                 inputValue = inputValue + (" √")
             }
             brain.pressEquation(equation: inputValue)
-            //            output.displayHistory(historyValue: inputValue)
+           
             
         case .sin:
             dot = false
@@ -192,7 +182,6 @@ class InputValidator : CalculatorInterface
                 inputValue = inputValue + " sin "
             }
             brain.pressEquation(equation: inputValue)
-            //                output.displayHistory(historyValue: inputValue)
             
         case .cos:
             dot = false
@@ -208,7 +197,6 @@ class InputValidator : CalculatorInterface
                 inputValue = inputValue + " cos "
             }
             brain.pressEquation(equation: inputValue)
-            //            output.displayHistory(historyValue: inputValue)
             
         case .tan:
             dot = false
@@ -223,7 +211,6 @@ class InputValidator : CalculatorInterface
                 inputValue = inputValue + " tan "
             }
             brain.pressEquation(equation: inputValue)
-            //            output.displayHistory(historyValue: inputValue)
             
         case .sinh:
             dot = false
@@ -236,8 +223,6 @@ class InputValidator : CalculatorInterface
                 inputValue = inputValue + " sinh "
             }
             brain.pressEquation(equation: inputValue)
-            //            output.displayHistory(historyValue: inputValue)
-            
             
         case .cosh:
             dot = false
@@ -250,7 +235,6 @@ class InputValidator : CalculatorInterface
                 inputValue = inputValue + " cosh "
             }
             brain.pressEquation(equation: inputValue)
-            //            output.displayHistory(historyValue: inputValue)
             
         case .tanh:
             dot = false
@@ -263,7 +247,6 @@ class InputValidator : CalculatorInterface
                 inputValue = inputValue + " tanh "
             }
             brain.pressEquation(equation: inputValue)
-            //            output.displayHistory(historyValue: inputValue)
             
         case .ln:
             dot = false
@@ -275,7 +258,6 @@ class InputValidator : CalculatorInterface
                 inputValue = inputValue + " ln ("
             }
             brain.pressEquation(equation: inputValue)
-            //            output.displayHistory(historyValue: inputValue)
             
         case .log:
             dot = false
@@ -287,7 +269,6 @@ class InputValidator : CalculatorInterface
                 inputValue = inputValue + " log ("
             }
             brain.pressEquation(equation: inputValue)
-            //            output.displayHistory(historyValue: inputValue)
             
         case .fact:
             dot = false
@@ -297,7 +278,6 @@ class InputValidator : CalculatorInterface
             else if inputValue.last! >= "0" && inputValue.last! <= "9" || inputValue.last == "π" || inputValue.last == "e" {
                 inputValue = inputValue + (" !")
             }
-            
             brain.pressEquation(equation: inputValue)
             
         case .percent:
@@ -331,7 +311,6 @@ class InputValidator : CalculatorInterface
                 }
             }
             brain.pressEquation(equation: inputValue)
-            //            output.displayHistory(historyValue: inputValue)
             
         case .leftBracket:
             if inputValue == nil || inputValue == "" || inputValue == "0" {
@@ -344,7 +323,6 @@ class InputValidator : CalculatorInterface
                 inputValue = inputValue + " ("
             }
             brain.pressEquation(equation: inputValue)
-            //            output.displayHistory(historyValue: inputValue)
             
         case .rightBracket:
             if inputValue == nil || inputValue == "" || inputValue == "0"{
@@ -355,10 +333,7 @@ class InputValidator : CalculatorInterface
                 
             }
             brain.pressEquation(equation: inputValue)
-            //            output.displayHistory(historyValue: inputValue)
             
-        default:
-            break
         }
         
     }
@@ -459,14 +434,9 @@ class InputValidator : CalculatorInterface
             }
             brain.pressEquation(equation: inputValue)
             
-        default:
-            break
         }
         
     }
-    
-    var resultClosure: ((Double?, Error?) -> Void)?
-    
     
 }
 

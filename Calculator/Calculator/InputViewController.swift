@@ -205,7 +205,7 @@ class InputViewController: UIViewController, InputInterface, SFSpeechRecognizerD
     
     func checkForOperationSaid(resultString: String) {
         print("\(resultString)")
-//        for value in resultString {
+
         switch resultString {
         case "синус", "Синус" :
             symbolPressed(Function.sin.rawValue)
